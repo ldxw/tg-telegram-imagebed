@@ -1,0 +1,61 @@
+name: Docker Image CI
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # 简化时间标签：格式 YYYYMMDD-HHMM（年-月-日-时-分）
+      - name: Generate simplified time-based tag
+        id: time_tag
+        run: echo "TIME_TAG=$(date +'%Y%m%d-%H%M')" >> $GITHUB_ENV
+
+      # 1. 登录DockerHub
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # 2. 登录GHCR
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # 3. 登录阿里云容器仓库
+      - name: Login to Alibaba Cloud Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.ALIYUN_ACR_REGISTRY }}
+          username: ${{ secrets.ALIYUN_ACR_USERNAME }}
+          password: ${{ secrets.ALIYUN_ACR_PASSWORD }}
+
+      # 推送简化时间标签 + latest标签到三个仓库
+      - name: Build and push to all registries
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/tg-antiharassment:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/tg-antiharassment:${{ env.TIME_TAG }}
+            ghcr.io/${{ github.actor }}/tg-antiharassment:latest
+            ghcr.io/${{ github.actor }}/tg-antiharassment:${{ env.TIME_TAG }}
+            ${{ secrets.ALIYUN_ACR_REGISTRY }}/${{ secrets.ALIYUN_ACR_NAMESPACE }}/tg-antiharassment:latest
+            ${{ secrets.ALIYUN_ACR_REGISTRY }}/${{ secrets.ALIYUN_ACR_NAMESPACE }}/tg-antiharassment:${{ env.TIME_TAG }}
