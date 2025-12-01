@@ -57,5 +57,5 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/tg-antiharassment:${{ env.TIME_TAG }}
             ghcr.io/${{ github.actor }}/tg-antiharassment:latest
             ghcr.io/${{ github.actor }}/tg-antiharassment:${{ env.TIME_TAG }}
-            ${{ secrets.ALIYUN_ACR_REGISTRY }}/${{ secrets.ALIYUN_ACR_NAMESPACE }}/tg-antiharassment:latest
-            ${{ secrets.ALIYUN_ACR_REGISTRY }}/${{ secrets.ALIYUN_ACR_NAMESPACE }}/tg-antiharassment:${{ env.TIME_TAG }}
+            ${{ secrets.ALIYUN_ACR_REGISTRY }}/ldxw-git/tg-antiharassment:latest
+            ${{ secrets.ALIYUN_ACR_REGISTRY }}/ldxw-git/tg-antiharassment:${{ env.TIME_TAG }}
