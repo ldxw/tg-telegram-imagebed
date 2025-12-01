@@ -56,9 +56,9 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/tg-telegram-imagebed:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/tg-telegram-imagebed:${{ env.TIME_TAG }}
-            ghcr.io/${{ github.actor }}/tg-telegram-imagebed:latest
-            ghcr.io/${{ github.actor }}/tg-telegram-imagebed:${{ env.TIME_TAG }}
-            ${{ secrets.ALIYUN_ACR_REGISTRY }}/ldxw-git/tg-telegram-imagebed:latest
-            ${{ secrets.ALIYUN_ACR_REGISTRY }}/ldxw-git/tg-telegram-imagebed:${{ env.TIME_TAG }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/tg-imagebed:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/tg-imagebed:${{ env.TIME_TAG }}
+            ghcr.io/${{ github.actor }}/tg-imagebed:latest
+            ghcr.io/${{ github.actor }}/tg-imagebed:${{ env.TIME_TAG }}
+            ${{ secrets.ALIYUN_ACR_REGISTRY }}/ldxw-git/tg-imagebed:latest
+            ${{ secrets.ALIYUN_ACR_REGISTRY }}/ldxw-git/tg-imagebed:${{ env.TIME_TAG }}
