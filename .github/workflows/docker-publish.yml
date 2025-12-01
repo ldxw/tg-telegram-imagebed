@@ -16,13 +16,13 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      # 关键修改：设置上海时区并生成对应时间标签（格式 YYYYMMDD-HH-MM）
+      # 设置上海时区并生成对应时间标签（格式 YYYYMMDD-HH-MM）
       - name: Generate Shanghai timezone time-based tag
         id: time_tag
         run: |
-          sudo ln -snf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime 
-          sudo echo "Asia/Shanghai" > /etc/timezone
+          export TZ='Asia/Shanghai'
           echo "TIME_TAG=$(date +'%Y%m%d-%H-%M')" >> $GITHUB_ENV
+          echo "当前上海时区时间：$(date +'%Y-%m-%d %H:%-M:%S')"
 
       # 1. 登录DockerHub
       - name: Login to DockerHub
