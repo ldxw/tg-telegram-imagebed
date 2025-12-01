@@ -20,8 +20,8 @@ jobs:
       - name: Generate Shanghai timezone time-based tag
         id: time_tag
         run: |
-          sudo apt-get update && sudo apt-get install -y tzdata
-          sudo ln -snf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo "Asia/Shanghai" > /etc/timezone
+          sudo ln -snf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime 
+          sudo echo "Asia/Shanghai" > /etc/timezone
           echo "TIME_TAG=$(date +'%Y%m%d-%H-%M')" >> $GITHUB_ENV
 
       # 1. 登录DockerHub
