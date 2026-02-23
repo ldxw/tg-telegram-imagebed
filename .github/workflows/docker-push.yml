@@ -40,12 +40,12 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       # 3. 登录阿里云容器仓库
-      - name: Login to Alibaba Cloud Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ secrets.ALIYUN_ACR_REGISTRY }}
-          username: ${{ secrets.ALIYUN_ACR_USERNAME }}
-          password: ${{ secrets.ALIYUN_ACR_PASSWORD }}
+      # - name: Login to Alibaba Cloud Container Registry
+      #   uses: docker/login-action@v3
+      #   with:
+      #     registry: ${{ secrets.ALIYUN_ACR_REGISTRY }}
+      #     username: ${{ secrets.ALIYUN_ACR_USERNAME }}
+      #     password: ${{ secrets.ALIYUN_ACR_PASSWORD }}
 
       # 推送简化时间标签 + latest标签到三个仓库
       - name: Build and push to all registries
@@ -60,5 +60,5 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/tg-imagebed:${{ env.TIME_TAG }}
             ghcr.io/${{ github.actor }}/tg-imagebed:latest
             ghcr.io/${{ github.actor }}/tg-imagebed:${{ env.TIME_TAG }}
-            ${{ secrets.ALIYUN_ACR_REGISTRY }}/ldxw-git/tg-imagebed:latest
-            ${{ secrets.ALIYUN_ACR_REGISTRY }}/ldxw-git/tg-imagebed:${{ env.TIME_TAG }}
+          #   ${{ secrets.ALIYUN_ACR_REGISTRY }}/ldxw-git/tg-imagebed:latest
+          #   ${{ secrets.ALIYUN_ACR_REGISTRY }}/ldxw-git/tg-imagebed:${{ env.TIME_TAG }}
